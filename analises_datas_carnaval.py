@@ -4,18 +4,39 @@ from collections import Counter
 
 def calcular_pascoa(ano):
     """Algoritmo de Meeus/Jones/Butcher para calcular a Páscoa"""
+    # ETAPA 1: Ciclo Metônico (19 anos)
     a = ano % 19
-    b = ano // 100
-    c = ano % 100
-    d = b // 4
-    e = b % 4
+    # Posição do ano no ciclo lunar de 19 anos
+
+    # ETAPA 2: Componentes do ano
+    b = ano // 100  # Quociente da divisão por 100 (usado para correções do calendário)
+    c = ano % 100   # Resto da divisão por 100 (ano dentro do grupo de 100)
+
+    # ETAPA 3: Correções de anos bissextos
+    d = b // 4      # Número de anos bissextos centuriais
+    e = b % 4       # Resto
+
+    # ETAPA 4: Correção da precessão lunar
     f = (b + 8) // 25
     g = (b - f + 1) // 3
+    # Ajuste para compensar a diferença entre ano lunar e solar
+
+    # ETAPA 5: Epacta (idade da lua em 1º de janeiro)
     h = (19 * a + b - d - g + 15) % 30
+    # Determina quando ocorre a lua cheia pascal
+
+    # ETAPA 6: Componentes do dia da semana
     i = c // 4
     k = c % 4
+
+    # ETAPA 7: Encontrar o domingo
     l = (32 + 2 * e + 2 * i - h - k) % 7
+    # Ajusta para cair em um domingo
+
+    # ETAPA 8: Correção final
     m = (a + 11 * h + 22 * l) // 451
+
+    # ETAPA 9: Calcular mês e dia
     mes = (h + l - 7 * m + 114) // 31
     dia = ((h + l - 7 * m + 114) % 31) + 1
     
